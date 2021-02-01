@@ -15,4 +15,12 @@ class User < ApplicationRecord
     -> { distinct },
     through: :visits,
     source: :visited_url
+
+    def self.factory_create(email)
+        begin
+        User.create!(email: email)
+        rescue
+            retry
+        end
+    end
 end
