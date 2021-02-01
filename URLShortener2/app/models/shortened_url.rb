@@ -10,15 +10,15 @@ class ShortenedUrl < ApplicationRecord
 
     def self.factory_create(user, long_url)
         ShortenedUrl.create!( 
-            :submitter_id => user.id, 
-            :long_url = long_url, 
-            :short_url => ShortenedUrl.random_code)
+            submitter_id: user.id, 
+            long_url: long_url, 
+            short_url: ShortenedUrl.random_code)
     end
 
     def self.random_code
         loop do
-        code = SecureRandom::urlsafe_base64(16)
-        return code unless shortened_urls.exists?(short_url: code)
+        code = SecureRandom::urlsafe_base64(8)
+        return code unless ShortenedUrl.exists?(short_url: code)
         end
     end
 
